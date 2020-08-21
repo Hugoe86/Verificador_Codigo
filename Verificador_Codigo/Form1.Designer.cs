@@ -32,21 +32,27 @@
             this.Txt_Archivo = new System.Windows.Forms.RichTextBox();
             this.Tab_Resultados1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.Btn_Revisar = new System.Windows.Forms.Button();
-            this.Tblout_Panel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.Lbl_Etiqueta2 = new System.Windows.Forms.Label();
             this.TblPnl_Panel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.Lbl_Etiqueta1 = new System.Windows.Forms.Label();
             this.Txt_Resultado1 = new System.Windows.Forms.RichTextBox();
+            this.Lbl_Etiqueta1 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Tblout_Panel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.Txt_Resultado2 = new System.Windows.Forms.RichTextBox();
+            this.Lbl_Etiqueta2 = new System.Windows.Forms.Label();
+            this.Btn_Revisar = new System.Windows.Forms.Button();
             this.Lbl_Nombre_Archivo = new System.Windows.Forms.Label();
             this.Lbl_Ruta_Archivo = new System.Windows.Forms.Label();
-            this.Txt_Resultado2 = new System.Windows.Forms.RichTextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.Txt_Resultado3 = new System.Windows.Forms.RichTextBox();
+            this.Lbl_Etiqueta3 = new System.Windows.Forms.Label();
             this.Tab_Resultados1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.TblPnl_Panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.Tblout_Panel2.SuspendLayout();
-            this.TblPnl_Panel1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Btn_Cargar_Archivo
@@ -71,6 +77,7 @@
             // 
             this.Tab_Resultados1.Controls.Add(this.tabPage1);
             this.Tab_Resultados1.Controls.Add(this.tabPage2);
+            this.Tab_Resultados1.Controls.Add(this.tabPage3);
             this.Tab_Resultados1.Location = new System.Drawing.Point(654, 37);
             this.Tab_Resultados1.Name = "Tab_Resultados1";
             this.Tab_Resultados1.SelectedIndex = 0;
@@ -88,6 +95,40 @@
             this.tabPage1.Text = "Resultado 1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // TblPnl_Panel1
+            // 
+            this.TblPnl_Panel1.ColumnCount = 1;
+            this.TblPnl_Panel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TblPnl_Panel1.Controls.Add(this.Txt_Resultado1, 0, 1);
+            this.TblPnl_Panel1.Controls.Add(this.Lbl_Etiqueta1, 0, 0);
+            this.TblPnl_Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TblPnl_Panel1.Location = new System.Drawing.Point(3, 3);
+            this.TblPnl_Panel1.Name = "TblPnl_Panel1";
+            this.TblPnl_Panel1.RowCount = 2;
+            this.TblPnl_Panel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TblPnl_Panel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.TblPnl_Panel1.Size = new System.Drawing.Size(364, 379);
+            this.TblPnl_Panel1.TabIndex = 0;
+            // 
+            // Txt_Resultado1
+            // 
+            this.Txt_Resultado1.Location = new System.Drawing.Point(3, 97);
+            this.Txt_Resultado1.Name = "Txt_Resultado1";
+            this.Txt_Resultado1.Size = new System.Drawing.Size(351, 279);
+            this.Txt_Resultado1.TabIndex = 8;
+            this.Txt_Resultado1.Text = "";
+            // 
+            // Lbl_Etiqueta1
+            // 
+            this.Lbl_Etiqueta1.AutoSize = true;
+            this.Lbl_Etiqueta1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_Etiqueta1.ForeColor = System.Drawing.Color.Teal;
+            this.Lbl_Etiqueta1.Location = new System.Drawing.Point(3, 0);
+            this.Lbl_Etiqueta1.Name = "Lbl_Etiqueta1";
+            this.Lbl_Etiqueta1.Size = new System.Drawing.Size(354, 44);
+            this.Lbl_Etiqueta1.TabIndex = 7;
+            this.Lbl_Etiqueta1.Text = "Constantes: SESSION_ABIERTA - todo en mayúsculas.";
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.Tblout_Panel2);
@@ -98,16 +139,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Resultado 2";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // Btn_Revisar
-            // 
-            this.Btn_Revisar.Location = new System.Drawing.Point(654, 12);
-            this.Btn_Revisar.Name = "Btn_Revisar";
-            this.Btn_Revisar.Size = new System.Drawing.Size(374, 23);
-            this.Btn_Revisar.TabIndex = 5;
-            this.Btn_Revisar.Text = "Revisar";
-            this.Btn_Revisar.UseVisualStyleBackColor = true;
-            this.Btn_Revisar.Click += new System.EventHandler(this.Btn_Revisar_Click);
             // 
             // Tblout_Panel2
             // 
@@ -125,46 +156,34 @@
             this.Tblout_Panel2.Size = new System.Drawing.Size(364, 379);
             this.Tblout_Panel2.TabIndex = 0;
             // 
+            // Txt_Resultado2
+            // 
+            this.Txt_Resultado2.Location = new System.Drawing.Point(3, 97);
+            this.Txt_Resultado2.Name = "Txt_Resultado2";
+            this.Txt_Resultado2.Size = new System.Drawing.Size(351, 279);
+            this.Txt_Resultado2.TabIndex = 9;
+            this.Txt_Resultado2.Text = "";
+            // 
             // Lbl_Etiqueta2
             // 
             this.Lbl_Etiqueta2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Lbl_Etiqueta2.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_Etiqueta2.ForeColor = System.Drawing.Color.Teal;
             this.Lbl_Etiqueta2.Location = new System.Drawing.Point(3, 0);
             this.Lbl_Etiqueta2.Name = "Lbl_Etiqueta2";
             this.Lbl_Etiqueta2.Size = new System.Drawing.Size(358, 94);
             this.Lbl_Etiqueta2.TabIndex = 7;
             this.Lbl_Etiqueta2.Text = "Variables de la clase: Nombre_Cliente (cada palabra inicia en mayúscula).";
             // 
-            // TblPnl_Panel1
+            // Btn_Revisar
             // 
-            this.TblPnl_Panel1.ColumnCount = 1;
-            this.TblPnl_Panel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TblPnl_Panel1.Controls.Add(this.Txt_Resultado1, 0, 1);
-            this.TblPnl_Panel1.Controls.Add(this.Lbl_Etiqueta1, 0, 0);
-            this.TblPnl_Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TblPnl_Panel1.Location = new System.Drawing.Point(3, 3);
-            this.TblPnl_Panel1.Name = "TblPnl_Panel1";
-            this.TblPnl_Panel1.RowCount = 2;
-            this.TblPnl_Panel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.TblPnl_Panel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.TblPnl_Panel1.Size = new System.Drawing.Size(364, 379);
-            this.TblPnl_Panel1.TabIndex = 0;
-            // 
-            // Lbl_Etiqueta1
-            // 
-            this.Lbl_Etiqueta1.AutoSize = true;
-            this.Lbl_Etiqueta1.Location = new System.Drawing.Point(3, 0);
-            this.Lbl_Etiqueta1.Name = "Lbl_Etiqueta1";
-            this.Lbl_Etiqueta1.Size = new System.Drawing.Size(271, 13);
-            this.Lbl_Etiqueta1.TabIndex = 7;
-            this.Lbl_Etiqueta1.Text = "Constantes: SESSION_ABIERTA - todo en mayúsculas.";
-            // 
-            // Txt_Resultado1
-            // 
-            this.Txt_Resultado1.Location = new System.Drawing.Point(3, 97);
-            this.Txt_Resultado1.Name = "Txt_Resultado1";
-            this.Txt_Resultado1.Size = new System.Drawing.Size(351, 279);
-            this.Txt_Resultado1.TabIndex = 8;
-            this.Txt_Resultado1.Text = "";
+            this.Btn_Revisar.Location = new System.Drawing.Point(654, 12);
+            this.Btn_Revisar.Name = "Btn_Revisar";
+            this.Btn_Revisar.Size = new System.Drawing.Size(374, 23);
+            this.Btn_Revisar.TabIndex = 5;
+            this.Btn_Revisar.Text = "Revisar";
+            this.Btn_Revisar.UseVisualStyleBackColor = true;
+            this.Btn_Revisar.Click += new System.EventHandler(this.Btn_Revisar_Click);
             // 
             // Lbl_Nombre_Archivo
             // 
@@ -183,13 +202,51 @@
             this.Lbl_Ruta_Archivo.TabIndex = 9;
             this.Lbl_Ruta_Archivo.Visible = false;
             // 
-            // Txt_Resultado2
+            // tabPage3
             // 
-            this.Txt_Resultado2.Location = new System.Drawing.Point(3, 97);
-            this.Txt_Resultado2.Name = "Txt_Resultado2";
-            this.Txt_Resultado2.Size = new System.Drawing.Size(351, 279);
-            this.Txt_Resultado2.TabIndex = 9;
-            this.Txt_Resultado2.Text = "";
+            this.tabPage3.Controls.Add(this.tableLayoutPanel1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(370, 385);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Resultado 3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.Txt_Resultado3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.Lbl_Etiqueta3, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(364, 379);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // Txt_Resultado3
+            // 
+            this.Txt_Resultado3.Location = new System.Drawing.Point(3, 97);
+            this.Txt_Resultado3.Name = "Txt_Resultado3";
+            this.Txt_Resultado3.Size = new System.Drawing.Size(351, 279);
+            this.Txt_Resultado3.TabIndex = 9;
+            this.Txt_Resultado3.Text = "";
+            // 
+            // Lbl_Etiqueta3
+            // 
+            this.Lbl_Etiqueta3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Lbl_Etiqueta3.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_Etiqueta3.ForeColor = System.Drawing.Color.Teal;
+            this.Lbl_Etiqueta3.Location = new System.Drawing.Point(3, 0);
+            this.Lbl_Etiqueta3.Name = "Lbl_Etiqueta3";
+            this.Lbl_Etiqueta3.Size = new System.Drawing.Size(358, 94);
+            this.Lbl_Etiqueta3.TabIndex = 7;
+            this.Lbl_Etiqueta3.Text = "Variables locales: nombre_cliente (cada palabra inicia en minúscula).";
             // 
             // Form1
             // 
@@ -206,11 +263,14 @@
             this.Text = "Form1";
             this.Tab_Resultados1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.TblPnl_Panel1.ResumeLayout(false);
+            this.TblPnl_Panel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.Tblout_Panel2.ResumeLayout(false);
-            this.TblPnl_Panel1.ResumeLayout(false);
-            this.TblPnl_Panel1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -231,6 +291,10 @@
         private System.Windows.Forms.Label Lbl_Nombre_Archivo;
         private System.Windows.Forms.Label Lbl_Ruta_Archivo;
         private System.Windows.Forms.RichTextBox Txt_Resultado2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.RichTextBox Txt_Resultado3;
+        private System.Windows.Forms.Label Lbl_Etiqueta3;
     }
 }
 

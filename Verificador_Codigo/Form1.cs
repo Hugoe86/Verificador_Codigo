@@ -91,19 +91,23 @@ namespace Verificador_Codigo
             {
              
                 var obj_1 = Revision_Punto1(Lbl_Nombre_Archivo.Text, Lbl_Ruta_Archivo.Text);
-              
+                var obj_2 = Revision_Punto2(Lbl_Nombre_Archivo.Text, Lbl_Ruta_Archivo.Text);
+                var obj_3 = Revision_Punto3(Lbl_Nombre_Archivo.Text, Lbl_Ruta_Archivo.Text);
 
+                //  se ejecutan los metodos
                 await Task.WhenAll(
-                    obj_1
+                    obj_1, obj_2, obj_3
                     );
 
-
                 var resultado_1 = await obj_1;//    variable para contener el resultado numero 1
-
+                var resultado_2 = await obj_2;//    variable para contener el resultado numero 2
+                var resultado_3 = await obj_3;//    variable para contener el resultado numero 3
 
 
                 //  se cargan los resultados
                 Txt_Resultado1.Text = resultado_1.ToString();
+                Txt_Resultado2.Text = resultado_2.ToString();
+                Txt_Resultado3.Text = resultado_3.ToString();
 
 
             }
@@ -196,6 +200,214 @@ namespace Verificador_Codigo
 
             return resultado;
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nombre_archivo"></param>
+        /// <param name="ruta_archivo"></param>
+        /// <returns></returns>
+        public async Task<String> Revision_Punto2(String nombre_archivo, String ruta_archivo)
+        {
+            String resultado = "";//    variable para colocar el resultado
+            bool tieneMayusculas = false;// variable para saber si una palabra esta en mayusculas
+            Int32 numero_linea = 0;//   variable para obtener el numero de linea del archivo
+            Boolean bandera = false;//  variable para indicar si ya entro a revisar el caracter de la variable
+            String liena_sin_espacios = "";//   variable para contener la linea sin espacios
+            try
+            {
+                //  validamos que no sea una clase
+                if (nombre_archivo.Contains("cs"))
+                {
+
+                    // Read each line of the file into a string array. Each element
+                    // of the array is one line of the file.
+                    string[] lineas = System.IO.File.ReadAllLines(@"" + ruta_archivo);
+
+
+                    foreach (string linea in lineas)
+                    {
+                        //  se quitan los espacios
+                        liena_sin_espacios = linea.Trim(); 
+
+                        //  se incrementa el numero de la linea
+                        numero_linea++;
+
+                        //  validamos que no sea linea de using ni de class
+                        if (linea.Contains("using") || linea.Contains("class") || linea.Contains("namespace"))
+                        {
+                            //  no realiza ninguna accion
+
+                        }
+                        else//  si lee la linea que no son using, class y namespace
+                        {
+                            //  validamos que tenga informacion la linea
+                            if (linea != "" )
+                            {
+
+                                //  validamos que el texto de la liena sea mayor a un caracter
+                                if (liena_sin_espacios.Length > 1 )
+                                {
+
+                                    //  validamos que no sea comentario
+                                    if (liena_sin_espacios.Substring(0, 2) == "//")
+                                    {
+                                        //  no realiza ninguna accion
+                                    }
+                                    else//  si no es comentario procede a revisar
+                                    {
+
+                                        string[] linea_texto = liena_sin_espacios.Split(' ');//   variable para contener las palabras
+                                        string[] linea_variable_ = linea_texto[2].Split('_');//   variable para contener las palabras
+
+                                        tieneMayusculas = false;
+
+
+                                        //  se recorren las palabras de la linea
+                                        for (int palabra = 0; palabra <= linea_variable_.Length - 1; palabra++)
+                                        {
+                                            foreach (char caracter_palabra in linea_variable_[palabra])
+                                            {
+                                                tieneMayusculas = Char.IsUpper(caracter_palabra);
+
+                                                //  validamos que tenga las letras en mayuscula
+                                                if (tieneMayusculas == false)
+                                                {
+                                                    resultado += linea + " Linea[" + numero_linea + "]" + "\n";
+                                                    bandera = true;
+                                                    break;
+                                                }
+
+                                                break;
+
+                                            }
+
+                                            //  validamos que la bandera este indicada
+                                            if (bandera == true)
+                                            {
+                                                bandera = false;
+                                                break;
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return resultado;
+        }
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nombre_archivo"></param>
+        /// <param name="ruta_archivo"></param>
+        /// <returns></returns>
+        public async Task<String> Revision_Punto3(String nombre_archivo, String ruta_archivo)
+        {
+            String resultado = "";//    variable para colocar el resultado
+            bool tieneMinusculas = false;// variable para saber si una palabra esta en mayusculas
+            Int32 numero_linea = 0;//   variable para obtener el numero de linea del archivo
+            String liena_sin_espacios = "";//   variable para contener la linea sin espacios
+            Boolean bandera = false;//  variable para indicar si ya entro a revisar el caracter de la variable
+
+            try
+            {
+                //  validamos que no sea una clase
+                if (nombre_archivo.Contains(".js"))
+                {
+
+                    // Read each line of the file into a string array. Each element
+                    // of the array is one line of the file.
+                    string[] lineas = System.IO.File.ReadAllLines(@"" + ruta_archivo);
+
+
+                    foreach (string linea in lineas)
+                    {
+                        //  se quitan los espacios
+                        liena_sin_espacios = linea.Trim();
+
+                        //  se incrementa el numero de la linea
+                        numero_linea++;
+
+
+                        if (numero_linea == 169)
+                        {
+                            var x = 1;
+                        }
+
+                        //  validamos que tenga informacion la linea
+                        if (linea != "")
+                        {
+                            //  validamos que el texto de la liena sea mayor a un caracter
+                            if (liena_sin_espacios.Length > 3)
+                            {
+                                //  validamos que tenga la paralabra sea var
+                                if (liena_sin_espacios.Substring(0, 3) == "var")
+                                {
+                                    string[] linea_texto = liena_sin_espacios.Split(' ');//   variable para contener las palabras
+                                    string[] linea_variable_ = linea_texto[1].Split('_');//   variable para contener las palabras
+
+                                    //  se recorren las palabras de la linea
+                                    for (int palabra = 0; palabra <= linea_variable_.Length - 1; palabra++)
+                                    {
+                                        foreach (char caracter_palabra in linea_variable_[palabra])
+                                        {
+                                            tieneMinusculas = Char.IsLower(caracter_palabra);
+
+                                            //  validamos que tenga las letras en mayuscula
+                                            if (tieneMinusculas == false)
+                                            {
+                                                resultado += linea + " Linea[" + numero_linea + "]" + "\n";
+                                                bandera = true;
+                                                break;
+                                            }
+
+                                            break;
+
+                                        }
+
+                                        //  validamos que la bandera este indicada
+                                        if (bandera == true)
+                                        {
+                                            bandera = false;
+                                            break;
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = ex.Message;
+            }
+
+            return resultado;
+        }
+
+
 
         #endregion
     }
