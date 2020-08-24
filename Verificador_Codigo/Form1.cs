@@ -118,10 +118,11 @@ namespace Verificador_Codigo
                 var obj_8 = Revision_Punto8(Lbl_Nombre_Archivo.Text, Lbl_Ruta_Archivo.Text);
                 var obj_9 = Revision_Punto9(Lbl_Nombre_Archivo.Text, Lbl_Ruta_Archivo.Text);
                 var obj_10 = Revision_Punto10(Lbl_Nombre_Archivo.Text, Lbl_Ruta_Archivo.Text);
+                var obj_11 = Revision_Punto11(Lbl_Nombre_Archivo.Text, Lbl_Ruta_Archivo.Text);
 
                 //  se ejecutan los metodos
                 await Task.WhenAll(
-                    obj_1, obj_2, obj_3, obj_4, obj_6, obj_7, obj_8, obj_9, obj_10
+                    obj_1, obj_2, obj_3, obj_4, obj_6, obj_7, obj_8, obj_9, obj_10, obj_11
                     );
 
                 var resultado_1 = await obj_1;//    variable para contener el resultado numero 1
@@ -133,6 +134,7 @@ namespace Verificador_Codigo
                 var resultado_8 = await obj_8;//    variable para contener el resultado numero 8
                 var resultado_9 = await obj_9;//    variable para contener el resultado numero 8
                 var resultado_10 = await obj_10;//    variable para contener el resultado numero 10
+                var resultado_11 = await obj_11;//    variable para contener el resultado numero 11
 
 
                 //  se cargan los resultados
@@ -145,6 +147,7 @@ namespace Verificador_Codigo
                 Txt_Resultado8.Text = resultado_8.ToString();
                 Txt_Resultado9.Text = resultado_9.ToString();
                 Txt_Resultado10.Text = resultado_10.ToString();
+                Txt_Resultado11.Text = resultado_11.ToString();
 
 
             }
@@ -237,7 +240,6 @@ namespace Verificador_Codigo
 
             return resultado;
         }
-
 
         /// <summary>
         /// 
@@ -344,7 +346,6 @@ namespace Verificador_Codigo
 
             return resultado;
         }
-
 
         /// <summary>
         /// 
@@ -690,7 +691,6 @@ namespace Verificador_Codigo
             return resultado;
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -772,6 +772,8 @@ namespace Verificador_Codigo
                                 if (linea_sin_espacios.Substring(0, 3) == "Cls"
                                     || linea_sin_espacios.Substring(0, 5) == "strin" || linea_sin_espacios.Substring(0, 5) == "Strin"
                                     || linea_sin_espacios.Substring(0, 3) == "var" || linea_sin_espacios.Substring(0, 4) == "List"
+                                    || linea_sin_espacios.Substring(0, 3) == "dou" || linea_sin_espacios.Substring(0, 4) == "Dou"
+                                    || linea_sin_espacios.Substring(0, 3) == "dec" || linea_sin_espacios.Substring(0, 4) == "Dec"
                                     )
                                 {
 
@@ -794,8 +796,6 @@ namespace Verificador_Codigo
 
             return resultado;
         }
-
-
 
         /// <summary>
         /// 
@@ -888,8 +888,10 @@ namespace Verificador_Codigo
                                 {
                                     //  validamos que tenga la paralabra sea var
                                     if (linea_sin_espacios.Substring(0, 3) == "Cls"
-                                         || linea_sin_espacios.Substring(0, 5) == "strin" || linea_sin_espacios.Substring(0, 5) == "Strin"
-                                         || linea_sin_espacios.Substring(0, 3) == "var" || linea_sin_espacios.Substring(0, 4) == "List"
+                                            || linea_sin_espacios.Substring(0, 5) == "strin" || linea_sin_espacios.Substring(0, 5) == "Strin"
+                                            || linea_sin_espacios.Substring(0, 3) == "var" || linea_sin_espacios.Substring(0, 4) == "List"
+                                            || linea_sin_espacios.Substring(0, 3) == "dou" || linea_sin_espacios.Substring(0, 4) == "Dou"
+                                            || linea_sin_espacios.Substring(0, 3) == "dec" || linea_sin_espacios.Substring(0, 4) == "Dec"
                                          )
                                     {
 
@@ -971,9 +973,6 @@ namespace Verificador_Codigo
 
             return resultado;
         }
-
-
-
 
         /// <summary>
         /// 
@@ -1274,7 +1273,6 @@ namespace Verificador_Codigo
             return resultado;
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -1362,6 +1360,202 @@ namespace Verificador_Codigo
             return resultado;
         }
 
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nombre_archivo"></param>
+        /// <param name="ruta_archivo"></param>
+        /// <returns></returns>
+        public async Task<String> Revision_Punto11(String nombre_archivo, String ruta_archivo)
+        {
+            String resultado = "";//    variable para colocar el resultado
+            Int32 numero_linea = 0;//   variable para obtener el numero de linea del archivo
+            String linea_sin_espacios = "";//   variable para contener la linea sin espacios
+            Boolean es_encabezado = false;//   variable para indicar cuando se esta leyendo un encabezado
+            String texto_encabezado = "";// variable para agregar el texto de un encabezado
+            String nombre_variables = "";//   variable con la que se estara obteniendo el nombre de las variables
+            String nombre_funciones = "";//   variable con la que se estara obteniendo el nombre de la funcion
+            Boolean bandera_parametros = false;//   variable para indicar cuando se comienza a capturar el nombre de las variables
+
+            try
+            {
+                //  validamos que no sea una clase
+                if (nombre_archivo.Contains(".js"))
+                {
+
+                    // Read each line of the file into a string array. Each element
+                    // of the array is one line of the file.
+                    string[] lineas = System.IO.File.ReadAllLines(@"" + ruta_archivo);
+
+
+                    foreach (string linea in lineas)
+                    {
+
+                        //  se incrementa el numero de la linea
+                        numero_linea++;
+
+                        //  se quitan los espacios
+                        linea_sin_espacios = linea.Trim();
+
+                        //  validamos que tenga informacion la linea
+                        if (linea_sin_espacios != "")
+                        {
+                            //  validamos la longitud de la linea
+                            if (linea_sin_espacios.Length > 8)
+                            {
+
+
+
+                                if (es_encabezado == true)// validamos que la bandera este activa
+                                {
+                                    texto_encabezado += linea_sin_espacios + "\n";
+
+                                    if (linea_sin_espacios.Contains("=") && linea_sin_espacios.Contains("*/"))// validamos que sea fin de comentario de funcion
+                                    {
+                                        es_encabezado = false;
+                                    }
+                                }
+                                // validamos que sea inicio de comentario de funcion
+                                else if (linea_sin_espacios.Contains("/*") && linea_sin_espacios.Contains("="))
+                                {
+                                    //  se indica que es encabezado
+                                    es_encabezado = true;
+
+                                    //  se limpia la variable
+                                    texto_encabezado = "";
+
+                                    //  se asigna el texto del comentario
+                                    texto_encabezado += linea_sin_espacios + "\n";
+                                }
+                                // validamos que sea una funcion
+                                else if (linea_sin_espacios.Substring(0, 8) == "function" && !linea_sin_espacios.Contains("--"))
+                                {
+
+                                    resultado += Revisar_Parametros_En_Encabezado(linea_sin_espacios, "function", texto_encabezado);
+
+
+                                    //nombre_funciones = "";
+                                    //string[] linea_nombre_funcion = linea_sin_espacios.Split(' ');//   variable para contener las palabras
+
+                                    ////  se recorre el arreglo de la funcion
+                                    //foreach (string registro in linea_nombre_funcion)
+                                    //{
+                                    //    //  validamos que este activa la bandera
+                                    //    if (bandera_parametros == true)
+                                    //    {
+                                    //        string[] linea_nombre_funcion_segmentada = registro.Split('(');//   variable para contener las palabras
+
+                                    //        nombre_funciones = linea_nombre_funcion_segmentada[0];
+
+                                    //        bandera_parametros = false;
+                                    //        break;
+                                    //    }
+                                    //    //  validamos que contenga el nombre de function
+                                    //    else if (registro.Contains("function"))
+                                    //    {
+                                    //        bandera_parametros = true;
+                                    //    }
+                                    //}
+
+                                    ////  validamos que el encabezao y la funcion sean igual
+                                    //if (texto_encabezado.Contains(nombre_funciones))
+                                    //{
+                                    //    //  se estaran obteniendo los parametros de la funcion
+                                    //    string[] linea_texto = linea_sin_espacios.Split('(');//   variable para contener las palabras
+                                    //    nombre_variables = "";
+
+                                    //    //  se recorre el arreglo de la funcion
+                                    //    foreach (string registro in linea_texto)
+                                    //    {
+
+                                    //        //  validamos que este marcada la bandera 
+                                    //        if (registro.Contains(")"))
+                                    //        {
+                                    //            nombre_variables = "";
+                                    //            nombre_variables = registro.Replace(')', ' ').Replace('{', ' ');
+
+
+                                    //            string[] linea_texto_funcion = nombre_variables.Split(',');//   variable para contener las palabras
+
+                                    //            //  validamos que sea mayor a 1
+                                    //            foreach (string registro_variables in linea_texto_funcion)
+                                    //            {
+                                    //                //  validamos que se encuentre dentro del encabezado
+                                    //                if (texto_encabezado.Trim().Contains(registro_variables.Trim() + ":"))
+                                    //                {
+
+                                    //                }
+                                    //                else // se indica que no esta registrado en el encabezado
+                                    //                {
+                                    //                    resultado += "El parametro " + registro_variables + "no esta declarado" + "\n" +
+                                    //                                texto_encabezado +
+                                    //                                linea_sin_espacios + "Linea[" + numero_linea + "]" + "\n";
+                                    //                }
+
+                                    //            }
+
+                                    //        }
+                                    //        else
+                                    //        {
+                                    //        }
+                                    //    }
+
+                                    //}
+
+                                }
+                                // validamos que sea una funcion con la palabra success
+                                else if ((linea_sin_espacios.Substring(0, 8) == "success:")
+                                            && !linea_sin_espacios.Contains("--")
+                                        )
+                                {
+                                    resultado += Revisar_Parametros_En_Encabezado(linea_sin_espacios, "success", texto_encabezado);
+
+                                }
+                                else if (( linea_sin_espacios.Substring(0, 8) == "results:")
+                                          && !linea_sin_espacios.Contains("--")
+                                      )
+                                {
+                                    resultado += Revisar_Parametros_En_Encabezado(linea_sin_espacios, "results", texto_encabezado);
+
+                                }
+                                else if (( linea_sin_espacios.Substring(0, 5) == "data:")
+                                          && !linea_sin_espacios.Contains("--")
+                                      )
+                                {
+                                    resultado += Revisar_Parametros_En_Encabezado(linea_sin_espacios, "data", texto_encabezado);
+
+                                }
+                                else if (linea_sin_espacios.Contains("('click'") && !linea_sin_espacios.Contains("--"))// validamos que sea una funcion con la palabra success
+                                {
+                                    resultado += Revisar_Parametros_Click_En_Encabezado(linea_sin_espacios, "click", texto_encabezado);
+
+                                }
+
+
+                                else
+                                {
+                                    String xx = "";
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = ex.Message;
+            }
+
+            return resultado;
+        }
+
+
+
         #endregion
 
 
@@ -1396,6 +1590,178 @@ namespace Verificador_Codigo
             return resultado;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="linea_sin_espacios"></param>
+        /// <param name="Texto_Funcion"></param>
+        /// <param name="texto_encabezado"></param>
+        /// <returns></returns>
+        public string Revisar_Parametros_En_Encabezado(String linea_sin_espacios, String Texto_Funcion, String texto_encabezado)
+        {
+            String resultado = "";//    variable para colocar el resultado
+            Int32 numero_linea = 0;//   variable para obtener el numero de linea del archivo
+            Boolean es_encabezado = false;//   variable para indicar cuando se esta leyendo un encabezado
+            String nombre_variables = "";//   variable con la que se estara obteniendo el nombre de las variables
+            String nombre_funciones = "";//   variable con la que se estara obteniendo el nombre de la funcion
+            Boolean bandera_parametros = false;//   variable para indicar cuando se comienza a capturar el nombre de las variables
+
+            try
+            {
+
+                nombre_funciones = "";
+                string[] linea_nombre_funcion = linea_sin_espacios.Split(' ');//   variable para contener las palabras
+ 
+                //  se recorre el arreglo de la funcion
+                foreach (string registro in linea_nombre_funcion)
+                {
+                    //  validamos que este activa la bandera
+                    if (bandera_parametros == true)
+                    {
+                        string[] linea_nombre_funcion_segmentada = registro.Split('(');//   variable para contener las palabras
+
+                        nombre_funciones = linea_nombre_funcion_segmentada[0];
+
+                        bandera_parametros = false;
+                        break;
+                    }
+                    //  validamos que contenga el nombre de function
+                    else if (registro.Contains(Texto_Funcion))
+                    {
+                        bandera_parametros = true;
+                    }
+                }
+
+                //  validamos que el encabezao y la funcion sean igual
+                if (texto_encabezado.Contains(nombre_funciones))
+                {
+                    //  se estaran obteniendo los parametros de la funcion
+                    string[] linea_texto = linea_sin_espacios.Split('(');//   variable para contener las palabras
+                    nombre_variables = "";
+
+                    //  se recorre el arreglo de la funcion
+                    foreach (string registro in linea_texto)
+                    {
+
+                        //  validamos que este marcada la bandera 
+                        if (registro.Contains(")"))
+                        {
+                            nombre_variables = "";
+                            nombre_variables = registro.Replace(')', ' ').Replace('{', ' ');
+
+
+                            string[] linea_texto_funcion = nombre_variables.Split(',');//   variable para contener las palabras
+
+                            //  validamos que sea mayor a 1
+                            foreach (string registro_variables in linea_texto_funcion)
+                            {
+                                //  validamos que se encuentre dentro del encabezado
+                                if (texto_encabezado.Trim().Contains(registro_variables.Trim() + ":"))
+                                {
+
+                                }
+                                else // se indica que no esta registrado en el encabezado
+                                {
+                                    resultado += "El parametro " + registro_variables + "no esta declarado" + "\n" +
+                                                texto_encabezado +
+                                                linea_sin_espacios + "Linea[" + numero_linea + "]" + "\n\n\n";
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                        }
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                resultado = e.Message;
+            }
+
+            return resultado;
+        }
+
+
+
+
+        public string Revisar_Parametros_Click_En_Encabezado(String linea_sin_espacios, String Texto_Funcion, String texto_encabezado)
+        {
+            String resultado = "";//    variable para colocar el resultado
+            Int32 numero_linea = 0;//   variable para obtener el numero de linea del archivo
+            Boolean es_encabezado = false;//   variable para indicar cuando se esta leyendo un encabezado
+            String nombre_variables = "";//   variable con la que se estara obteniendo el nombre de las variables
+            String nombre_funciones = "";//   variable con la que se estara obteniendo el nombre de la funcion
+            Boolean bandera_parametros = false;//   variable para indicar cuando se comienza a capturar el nombre de las variables
+           
+            try
+            {
+
+                nombre_funciones = "";
+                string[] linea_nombre_funcion = linea_sin_espacios.Split('#');//   variable para contener las palabras
+                string[] linea_nombre_funcion_segundo_ajuste = linea_nombre_funcion[1].Split(')');//   variable para contener las palabras
+                nombre_funciones = linea_nombre_funcion_segundo_ajuste[0];
+                nombre_funciones = nombre_funciones.Replace('\'', ' ');
+                nombre_funciones = nombre_funciones.Trim();
+
+                //  validamos que el encabezao y la funcion sean igual
+                if (texto_encabezado.Contains(nombre_funciones))
+                {
+                    //  se estaran obteniendo los parametros de la funcion
+                    string[] linea_texto = linea_sin_espacios.Split('(');//   variable para contener las palabras
+                    nombre_variables = "";
+
+                    //  se recorre el arreglo de la funcion
+                    foreach (string registro in linea_texto)
+                    {
+                        //  validamos que no tenga #
+                        if (registro.Contains("#"))
+                        { }
+                        //  validamos que este marcada la bandera 
+                        else if (registro.Contains(")"))
+                        {
+                            nombre_variables = "";
+                            nombre_variables = registro.Replace(')', ' ').Replace('{', ' ');
+
+
+                            string[] linea_texto_funcion = nombre_variables.Split(',');//   variable para contener las palabras
+
+                            //  validamos que sea mayor a 1
+                            foreach (string registro_variables in linea_texto_funcion)
+                            {
+                                //  validamos que se encuentre dentro del encabezado
+                                if (texto_encabezado.Trim().Contains(registro_variables.Trim() + ":"))
+                                {
+
+                                }
+                                else // se indica que no esta registrado en el encabezado
+                                {
+                                    resultado += "El parametro " + registro_variables + "no esta declarado" + "\n" +
+                                                texto_encabezado +
+                                                linea_sin_espacios + "Linea[" + numero_linea + "]" + "\n\n\n";
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                        }
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                resultado = e.Message;
+            }
+
+            return resultado;
+        }
         #endregion
     }
 }
