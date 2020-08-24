@@ -708,7 +708,7 @@
             this.Lbl_Etiqueta11.Name = "Lbl_Etiqueta11";
             this.Lbl_Etiqueta11.Size = new System.Drawing.Size(556, 96);
             this.Lbl_Etiqueta11.TabIndex = 7;
-            this.Lbl_Etiqueta11.Text = "Todos los parámetros están comentados claramente";
+            this.Lbl_Etiqueta11.Text = "Todos los parámetros están comentados claramente (solo para Js)";
             // 
             // TblPnl_Panel12
             // 
