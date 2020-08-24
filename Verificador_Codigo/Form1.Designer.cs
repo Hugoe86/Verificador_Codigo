@@ -83,6 +83,10 @@
             this.TblPnl_Panel12 = new System.Windows.Forms.TableLayoutPanel();
             this.Txt_Resultado12 = new System.Windows.Forms.RichTextBox();
             this.Lbl_Etiqueta12 = new System.Windows.Forms.Label();
+            this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.TblPnl_Panel13 = new System.Windows.Forms.TableLayoutPanel();
+            this.Txt_Resultado13 = new System.Windows.Forms.RichTextBox();
+            this.Lbl_Etiqueta13 = new System.Windows.Forms.Label();
             this.Tab_Resultados1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.TblPnl_Panel1.SuspendLayout();
@@ -108,6 +112,8 @@
             this.tabPage12.SuspendLayout();
             this.TblPnl_Panel11.SuspendLayout();
             this.TblPnl_Panel12.SuspendLayout();
+            this.tabPage13.SuspendLayout();
+            this.TblPnl_Panel13.SuspendLayout();
             this.SuspendLayout();
             // 
             // Btn_Cargar_Archivo
@@ -142,6 +148,7 @@
             this.Tab_Resultados1.Controls.Add(this.tabPage10);
             this.Tab_Resultados1.Controls.Add(this.tabPage11);
             this.Tab_Resultados1.Controls.Add(this.tabPage12);
+            this.Tab_Resultados1.Controls.Add(this.tabPage13);
             this.Tab_Resultados1.Location = new System.Drawing.Point(654, 37);
             this.Tab_Resultados1.Name = "Tab_Resultados1";
             this.Tab_Resultados1.SelectedIndex = 0;
@@ -746,6 +753,52 @@
             this.Lbl_Etiqueta12.TabIndex = 7;
             this.Lbl_Etiqueta12.Text = "Todos los bucles (for, Do, While, foreach…) están comentados claramente";
             // 
+            // tabPage13
+            // 
+            this.tabPage13.Controls.Add(this.TblPnl_Panel13);
+            this.tabPage13.Location = new System.Drawing.Point(4, 22);
+            this.tabPage13.Name = "tabPage13";
+            this.tabPage13.Size = new System.Drawing.Size(562, 385);
+            this.tabPage13.TabIndex = 12;
+            this.tabPage13.Text = "Resultado 13";
+            this.tabPage13.UseVisualStyleBackColor = true;
+            // 
+            // TblPnl_Panel13
+            // 
+            this.TblPnl_Panel13.AutoSize = true;
+            this.TblPnl_Panel13.ColumnCount = 1;
+            this.TblPnl_Panel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TblPnl_Panel13.Controls.Add(this.Txt_Resultado13, 0, 1);
+            this.TblPnl_Panel13.Controls.Add(this.Lbl_Etiqueta13, 0, 0);
+            this.TblPnl_Panel13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TblPnl_Panel13.Location = new System.Drawing.Point(0, 0);
+            this.TblPnl_Panel13.Name = "TblPnl_Panel13";
+            this.TblPnl_Panel13.RowCount = 2;
+            this.TblPnl_Panel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TblPnl_Panel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.TblPnl_Panel13.Size = new System.Drawing.Size(562, 385);
+            this.TblPnl_Panel13.TabIndex = 11;
+            // 
+            // Txt_Resultado13
+            // 
+            this.Txt_Resultado13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Txt_Resultado13.Location = new System.Drawing.Point(3, 99);
+            this.Txt_Resultado13.Name = "Txt_Resultado13";
+            this.Txt_Resultado13.Size = new System.Drawing.Size(556, 283);
+            this.Txt_Resultado13.TabIndex = 9;
+            this.Txt_Resultado13.Text = "";
+            // 
+            // Lbl_Etiqueta13
+            // 
+            this.Lbl_Etiqueta13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Lbl_Etiqueta13.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_Etiqueta13.ForeColor = System.Drawing.Color.Teal;
+            this.Lbl_Etiqueta13.Location = new System.Drawing.Point(3, 0);
+            this.Lbl_Etiqueta13.Name = "Lbl_Etiqueta13";
+            this.Lbl_Etiqueta13.Size = new System.Drawing.Size(556, 96);
+            this.Lbl_Etiqueta13.TabIndex = 7;
+            this.Lbl_Etiqueta13.Text = "Todos los bucles (for, Do, While, foreach…) están comentados claramente";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -797,6 +850,9 @@
             this.tabPage12.PerformLayout();
             this.TblPnl_Panel11.ResumeLayout(false);
             this.TblPnl_Panel12.ResumeLayout(false);
+            this.tabPage13.ResumeLayout(false);
+            this.tabPage13.PerformLayout();
+            this.TblPnl_Panel13.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -858,6 +914,10 @@
         private System.Windows.Forms.TableLayoutPanel TblPnl_Panel12;
         private System.Windows.Forms.RichTextBox Txt_Resultado12;
         private System.Windows.Forms.Label Lbl_Etiqueta12;
+        private System.Windows.Forms.TabPage tabPage13;
+        private System.Windows.Forms.TableLayoutPanel TblPnl_Panel13;
+        private System.Windows.Forms.RichTextBox Txt_Resultado13;
+        private System.Windows.Forms.Label Lbl_Etiqueta13;
     }
 }
 
