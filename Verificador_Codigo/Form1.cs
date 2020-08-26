@@ -178,6 +178,7 @@ namespace Verificador_Codigo
             String resultado = "";//    variable para colocar el resultado
             bool tieneMayusculas = false;// variable para saber si una palabra esta en mayusculas
             Int32 numero_linea = 0;//   variable para obtener el numero de linea del archivo
+            String linea_sin_espacios = "";//   variable para contener la linea sin espacios
 
             try
             {
@@ -192,6 +193,9 @@ namespace Verificador_Codigo
 
                     foreach (string linea in lineas)
                     {
+                        //  se quitan los espacios
+                        linea_sin_espacios = linea.Trim();
+
                         //  se incrementa el numero de la linea
                         numero_linea++;
 
@@ -202,36 +206,47 @@ namespace Verificador_Codigo
                         }
                         else//  buscaremos que tenga la palabra var
                         {
-                            //  validamos que tenga la paralabre de function
-                            if (linea.Contains("var"))
+                            //   validamos que tenga textp ña ñomea
+                            if (linea_sin_espacios != "")
                             {
-                                string[] linea_sesion = linea.Split(' ');
-
-                                tieneMayusculas = false;
-
-                                //  se recorren las palabras de la linea
-                                for (int palabra = 0; palabra <= linea_sesion.Length - 1; palabra++)
+                                //  validamos que no sea un comentario 
+                                if (linea_sin_espacios.Substring(0, 2) == "//")
                                 {
-                                    //  validamos las dos primeras palabras
-                                    if (palabra == 1)
-                                    {
-                                        tieneMayusculas = linea_sesion[palabra].Any(c => char.IsUpper(c));
-
-                                        //  validamos que tenga las letras en mayuscula
-                                        if (tieneMayusculas == false)
-                                        {
-                                            resultado += linea + " Linea[" + numero_linea + "]" + "\n";
-                                        }
-
-                                    }
-                                    else if (palabra > 1)// si es mayor ya no se leera la linea
-                                    {
-                                        break;
-                                    }
+                                    //  no se realiza ninguna accion
                                 }
+                                //  validamos que sea var
+                                else if (linea_sin_espacios.Substring(0, 3) == "var")
+                                {
+
+                                    string[] linea_sesion = linea.Split(' ');
+
+                                    tieneMayusculas = false;
+
+                                    //  se recorren las palabras de la linea
+                                    for (int palabra = 0; palabra <= linea_sesion.Length - 1; palabra++)
+                                    {
+                                        //  validamos las dos primeras palabras
+                                        if (palabra == 1)
+                                        {
+                                            tieneMayusculas = linea_sesion[palabra].Any(c => char.IsUpper(c));
+
+                                            //  validamos que tenga las letras en mayuscula
+                                            if (tieneMayusculas == false)
+                                            {
+                                                resultado += linea + " Linea[" + numero_linea + "]" + "\n";
+                                            }
+
+                                        }
+                                        else if (palabra > 1)// si es mayor ya no se leera la linea
+                                        {
+                                            break;
+                                        }
+                                    }
 
 
 
+
+                                }
                             }
                         }
                     }
@@ -241,7 +256,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-
+                resultado = ex.Message + "[linea" + numero_linea + "]" + "[" + linea_sin_espacios + "]";
             }
 
             return resultado;
@@ -259,7 +274,8 @@ namespace Verificador_Codigo
             bool tieneMayusculas = false;// variable para saber si una palabra esta en mayusculas
             Int32 numero_linea = 0;//   variable para obtener el numero de linea del archivo
             Boolean bandera = false;//  variable para indicar si ya entro a revisar el caracter de la variable
-            String liena_sin_espacios = "";//   variable para contener la linea sin espacios
+            String linea_sin_espacios = "";//   variable para contener la linea sin espacios
+
             try
             {
                 //  validamos que no sea una clase
@@ -273,11 +289,12 @@ namespace Verificador_Codigo
 
                     foreach (string linea in lineas)
                     {
-                        //  se quitan los espacios
-                        liena_sin_espacios = linea.Trim(); 
-
                         //  se incrementa el numero de la linea
                         numero_linea++;
+
+                        //  se quitan los espacios
+                        linea_sin_espacios = linea.Trim();
+
 
                         //  validamos que no sea linea de using ni de class
                         if (linea.Contains("using") || linea.Contains("class") || linea.Contains("namespace"))
@@ -292,18 +309,18 @@ namespace Verificador_Codigo
                             {
 
                                 //  validamos que el texto de la liena sea mayor a un caracter
-                                if (liena_sin_espacios.Length > 1 )
+                                if (linea_sin_espacios.Length > 1 )
                                 {
 
                                     //  validamos que no sea comentario
-                                    if (liena_sin_espacios.Substring(0, 2) == "//")
+                                    if (linea_sin_espacios.Substring(0, 2) == "//")
                                     {
                                         //  no realiza ninguna accion
                                     }
                                     else//  si no es comentario procede a revisar
                                     {
 
-                                        string[] linea_texto = liena_sin_espacios.Split(' ');//   variable para contener las palabras
+                                        string[] linea_texto = linea_sin_espacios.Split(' ');//   variable para contener las palabras
                                         string[] linea_variable_ = linea_texto[2].Split('_');//   variable para contener las palabras
 
                                         tieneMayusculas = false;
@@ -347,7 +364,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                resultado = ex.Message + "[linea" + numero_linea + "]" + "[" + linea_sin_espacios + "]";
             }
 
             return resultado;
@@ -409,7 +426,7 @@ namespace Verificador_Codigo
                                             //  validamos que tenga las letras en mayuscula
                                             if (tieneMinusculas == false)
                                             {
-                                                resultado += linea + " Linea[" + numero_linea + "]" + "\n";
+                                                resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
                                                 bandera = true;
                                                 break;
                                             }
@@ -443,7 +460,7 @@ namespace Verificador_Codigo
                                             //  validamos que tenga las letras en mayuscula
                                             if (tieneMinusculas == false)
                                             {
-                                                resultado += linea + " Linea[" + numero_linea + "]" + "\n";
+                                                resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
                                                 bandera = true;
                                                 break;
                                             }
@@ -479,7 +496,7 @@ namespace Verificador_Codigo
                                                 //  validamos que tenga las letras en mayuscula
                                                 if (tieneMinusculas == false)
                                                 {
-                                                    resultado += linea + " Linea[" + numero_linea + "]" + "\n";
+                                                    resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
                                                     bandera = true;
                                                     break;
                                                 }
@@ -516,7 +533,7 @@ namespace Verificador_Codigo
                                                 //  validamos que tenga las letras en mayuscula
                                                 if (tieneMinusculas == false)
                                                 {
-                                                    resultado += linea + " Linea[" + numero_linea + "]" + "\n";
+                                                    resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
                                                     bandera = true;
                                                     break;
                                                 }
@@ -549,7 +566,7 @@ namespace Verificador_Codigo
                                                 //  validamos que tenga las letras en mayuscula
                                                 if (tieneMinusculas == false)
                                                 {
-                                                    resultado += linea + " Linea[" + numero_linea + "]" + "\n";
+                                                    resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
                                                     bandera = true;
                                                     break;
                                                 }
@@ -619,7 +636,7 @@ namespace Verificador_Codigo
                                             //  validamos que tenga las letras en mayuscula
                                             if (tieneMinusculas == false)
                                             {
-                                                resultado += linea + " Linea[" + numero_linea + "]" + "\n";
+                                                resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
                                                 bandera = true;
                                                 break;
                                             }
@@ -661,7 +678,7 @@ namespace Verificador_Codigo
                                                     //  validamos que tenga las letras en mayuscula
                                                     if (tieneMinusculas == false)
                                                     {
-                                                        resultado += linea + " Linea[" + numero_linea + "]" + "\n";
+                                                        resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
                                                         bandera_asmx = false;
                                                         break;
                                                     }
@@ -691,7 +708,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                resultado = ex.Message;
+                resultado = ex.Message + "[linea" + numero_linea + "]" + "[" + linea_sin_espacios + "]";
             }
 
             return resultado;
@@ -712,6 +729,7 @@ namespace Verificador_Codigo
             Boolean bandera = false;//  variable para indicar si ya entro a revisar el caracter de la variable
             Boolean bandera_asmx = false;//  variable para indicar si ya entro a revisar el caracter de la variable
             string[] lineas;//  variable para la captura de las lineas del texto
+            String linea_anterior = "";//   variable para contener la linea anterior
 
             try
             {
@@ -743,7 +761,7 @@ namespace Verificador_Codigo
                                 {
                                     resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
                                 }
-                                else if(linea_sin_espacios.Contains("function") && !linea_sin_espacios.Contains("--"))
+                                else if (linea_sin_espacios.Contains("function") && !linea_sin_espacios.Contains("--"))
                                 {
                                     resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
                                 }
@@ -769,14 +787,22 @@ namespace Verificador_Codigo
                         numero_linea++;
 
                         //  validamos que tenga informacion la linea
-                        if (linea != "")
+                        if (linea_sin_espacios != "")
                         {
                             //  validamos que el texto de la liena sea mayor a un caracter
-                            if (linea_sin_espacios.Length > 3)
+                            if (linea_sin_espacios.Length >= 5)
+                            {
+                                //  validamos que tenga la paralabra sea var
+                                if (linea_sin_espacios.Substring(0, 5) == "strin" || linea_sin_espacios.Substring(0, 5) == "Strin")
+                                {
+                                    resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
+                                }
+                            }
+                            //  validamos que el texto de la liena sea mayor a un caracter
+                            else if (linea_sin_espacios.Length > 3)
                             {
                                 //  validamos que tenga la paralabra sea var
                                 if (linea_sin_espacios.Substring(0, 3) == "Cls"
-                                    || linea_sin_espacios.Substring(0, 5) == "strin" || linea_sin_espacios.Substring(0, 5) == "Strin"
                                     || linea_sin_espacios.Substring(0, 3) == "var" || linea_sin_espacios.Substring(0, 4) == "List"
                                     || linea_sin_espacios.Substring(0, 3) == "dou" || linea_sin_espacios.Substring(0, 4) == "Dou"
                                     || linea_sin_espacios.Substring(0, 3) == "dec" || linea_sin_espacios.Substring(0, 4) == "Dec"
@@ -786,6 +812,7 @@ namespace Verificador_Codigo
                                     resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
 
                                 }
+
                                 else if (linea_sin_espacios.Contains("var") && linea_sin_espacios.Contains("using"))//  validamos que tenga la palabra var en la linea
                                 {
                                     resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
@@ -797,7 +824,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                resultado = ex.Message;
+                resultado = ex.Message + "[linea" + numero_linea + "]" + "[" + linea_sin_espacios + "]";
             }
 
             return resultado;
@@ -839,28 +866,49 @@ namespace Verificador_Codigo
                         //  se incrementa el numero de la linea
                         numero_linea++;
 
-                        //  validamos que tenga informacion la linea
-                        if (linea != "")
+
+                        if (numero_linea == 1)//    validamos que sea la primera linea
                         {
-                            //  validamos que el texto de la liena sea mayor a un caracter
-                            if (linea_sin_espacios.Length > 3)
+                            linea_anterior = linea.Trim();
+                        }
+                        else//  continuamos revisando el documento
+                        {
+                            //  validamos que tenga informacion la linea
+                            if (linea != "")
                             {
-                                //  validamos que tenga la paralabra sea var
-                                if (linea_sin_espacios.Substring(0, 3) == "var")
+                                //  validamos que el texto de la liena sea mayor a un caracter
+                                if (linea_sin_espacios.Length > 3)
                                 {
-                                    //  validamos que tenga comentario
-                                    if (linea_sin_espacios.Contains("//"))
+                                    //  validamos que tenga la paralabra sea var
+                                    if (linea_sin_espacios.Substring(0, 3) == "var")
                                     {
-                                        //  si tiene comentario, es correcto
+                                        //  validamos que tenga comentario
+                                        if (linea_sin_espacios.Contains("//"))
+                                        {
+                                            //  si tiene comentario, es correcto
+                                        }
+                                        else//  se notifica que no tiene comentario la variable
+                                        {
+                                            //  validamos que tenga comentario la linea anterior
+                                            if (linea_anterior.Contains("//"))
+                                            {
+                                                //  si tiene comentario, es correcto
+                                            }
+                                            else//  se notifica que no tiene comentario la variable
+                                            {
+                                                resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n";
+                                            }
+                                        }
+                                       
                                     }
-                                    else//  se notifica que no tiene comentario la variable
-                                    {
-                                        resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n";
-                                    }
+                                   
                                 }
+
+
                             }
 
-
+                            //  se asigna el valor de la nueva linea anterior
+                            linea_anterior = linea.Trim();
                         }
                     }
                 }
@@ -876,6 +924,7 @@ namespace Verificador_Codigo
                         //  se incrementa el numero de la linea
                         numero_linea++;
 
+
                         if (numero_linea == 1)//    validamos que sea la primera linea
                         {
                             linea_anterior = linea.Trim();
@@ -890,11 +939,56 @@ namespace Verificador_Codigo
                             if (linea != "")
                             {
                                 //  validamos que el texto de la liena sea mayor a un caracter
-                                if (linea_sin_espacios.Length > 3)
+                                if (linea_sin_espacios.Length >= 5)
+                                {
+                                    //  validamos que tenga la paralabra sea var
+                                    if (linea_sin_espacios.Substring(0, 5) == "strin" || linea_sin_espacios.Substring(0, 5) == "Strin")
+                                    {
+                                        //  validamos que tenga comentario
+                                        if (linea_sin_espacios.Contains("//"))
+                                        {
+                                            //  si tiene comentario, es correcto
+                                        }
+                                        else//  se revisa si la linea anterior tiene comentario
+                                        {
+                                            //  validamos que tenga comentario la linea anterior
+                                            if (linea_anterior.Contains("//"))
+                                            {
+                                                //  si tiene comentario, es correcto
+                                            }
+                                            else//  se notifica que no tiene comentario la variable
+                                            {
+                                                resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n";
+                                            }
+                                        }
+                                    }
+                                    //  validamos que sea catch
+                                    else if (linea_sin_espacios.Contains("catch"))
+                                    {
+                                        //  validamos que tenga comentario
+                                        if (linea_sin_espacios.Contains("//"))
+                                        {
+                                            //  si tiene comentario, es correcto
+                                        }
+                                        else//  se notifica que no tiene comentario la variable
+                                        {
+                                            //  validamos que tenga comentario la linea anterior
+                                            if (linea_anterior.Contains("//"))
+                                            {
+                                                //  si tiene comentario, es correcto
+                                            }
+                                            else//  se notifica que no tiene comentario la variable
+                                            {
+                                                resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n";
+                                            }
+                                        }
+                                    }
+                                }
+                                //  validamos que el texto de la liena sea mayor a un caracter
+                                else if (linea_sin_espacios.Length > 3)
                                 {
                                     //  validamos que tenga la paralabra sea var
                                     if (linea_sin_espacios.Substring(0, 3) == "Cls"
-                                            || linea_sin_espacios.Substring(0, 5) == "strin" || linea_sin_espacios.Substring(0, 5) == "Strin"
                                             || linea_sin_espacios.Substring(0, 3) == "var" || linea_sin_espacios.Substring(0, 4) == "List"
                                             || linea_sin_espacios.Substring(0, 3) == "dou" || linea_sin_espacios.Substring(0, 4) == "Dou"
                                             || linea_sin_espacios.Substring(0, 3) == "dec" || linea_sin_espacios.Substring(0, 4) == "Dec"
@@ -907,7 +1001,7 @@ namespace Verificador_Codigo
                                             //  si tiene comentario, es correcto
                                         }
                                         else//  se revisa si la linea anterior tiene comentario
-                                        { 
+                                        {
                                             //  validamos que tenga comentario la linea anterior
                                             if (linea_anterior.Contains("//"))
                                             {
@@ -974,7 +1068,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                resultado = ex.Message + numero_linea.ToString();
+                resultado = ex.Message + "[linea" + numero_linea + "]" + "[" + linea_sin_espacios + "]";
             }
 
             return resultado;
@@ -1094,7 +1188,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                resultado = ex.Message + "[linea" + numero_linea + "]" + "[" + linea_sin_espacios + "]";
             }
 
             return resultado;
@@ -1210,7 +1304,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                resultado = ex.Message + "[linea" + numero_linea + "]" + "[" + linea_sin_espacios + "]";
             }
 
             return resultado;
@@ -1273,7 +1367,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                resultado = ex.Message + "[linea" + numero_linea + "]" + "[" + linea_sin_espacios + "]";
             }
 
             return resultado;
@@ -1326,19 +1420,29 @@ namespace Verificador_Codigo
 
                                 if (linea_sin_espacios.Contains("function") && !linea_sin_espacios.Contains("--"))
                                 {
-
+                                    //  se valida que sea una funcion
                                     if (linea_sin_espacios.Substring(0, 8) == "function")// validamos que sea una funcion
                                     {
                                         resultado += Tiene_Comentario_La_Funcion(linea_anterior, linea_sin_espacios, numero_linea);
                                     }
+                                    //  validamos que sea success, results, data
                                     else if (linea_sin_espacios.Substring(0, 8) == "success:"
                                                 || linea_sin_espacios.Substring(0, 8) == "results:"
                                                 || linea_sin_espacios.Substring(0, 5) == "data:"
+                                                || linea_sin_espacios.Substring(0, 7) == "finish:"
+                                                || linea_sin_espacios.Substring(0, 15) == "processResults:"
+                                                || linea_sin_espacios.Substring(0, 10) == "formatter:"
 
                                                 )// validamos que sea una funcion con la palabra success
                                     {
                                         resultado += Tiene_Comentario_La_Funcion(linea_anterior, linea_sin_espacios, numero_linea);
                                     }
+                                    //  validamos que sea callback
+                                    else if (linea_sin_espacios.Substring(0, 9) == "callback:")
+                                    {
+                                        resultado += Tiene_Comentario_La_Funcion(linea_anterior, linea_sin_espacios, numero_linea);
+                                    }
+                                    //  validamos que sea click
                                     else if (linea_sin_espacios.Contains("('click'"))// validamos que sea una funcion con la palabra success
                                     {
                                         resultado += Tiene_Comentario_La_Funcion(linea_anterior, linea_sin_espacios, numero_linea);
@@ -1348,6 +1452,7 @@ namespace Verificador_Codigo
                                         //String xx = linea_sin_espacios;                                        
                                     }
                                 }
+                                //  validamos que sea callback
 
                             }
 
@@ -1360,7 +1465,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                resultado = ex.Message;
+                resultado = ex.Message + "[linea" + numero_linea + "]" + "[" + linea_sin_espacios + "]";
             }
 
             return resultado;
@@ -1399,6 +1504,11 @@ namespace Verificador_Codigo
 
                         //  se incrementa el numero de la linea
                         numero_linea++;
+
+                        //if (numero_linea == 50)
+                        //{
+                        //    string x = "";
+                        //}
 
                         //  se quitan los espacios
                         linea_sin_espacios = linea.Trim();
@@ -1447,30 +1557,67 @@ namespace Verificador_Codigo
                                     resultado += Revisar_Parametros_En_Encabezado(linea_sin_espacios, "success", texto_encabezado, numero_linea);
 
                                 }
-                                else if (( linea_sin_espacios.Substring(0, 8) == "results:")
+                                else if ((linea_sin_espacios.Substring(0, 8) == "results:")
                                           && !linea_sin_espacios.Contains("--")
                                       )
                                 {
                                     resultado += Revisar_Parametros_En_Encabezado(linea_sin_espacios, "results", texto_encabezado, numero_linea);
 
                                 }
-                                else if (( linea_sin_espacios.Substring(0, 5) == "data:")
+                                else if ((linea_sin_espacios.Substring(0, 5) == "data:")
                                           && !linea_sin_espacios.Contains("--")
                                       )
                                 {
                                     resultado += Revisar_Parametros_En_Encabezado(linea_sin_espacios, "data", texto_encabezado, numero_linea);
 
                                 }
+                                else if ((linea_sin_espacios.Substring(0, 9) == "callback:")
+                                         && !linea_sin_espacios.Contains("--")
+                                     )
+                                {
+                                    resultado += Revisar_Parametros_En_Encabezado(linea_sin_espacios, "callback", texto_encabezado, numero_linea);
+
+                                }
+                                else if ((linea_sin_espacios.Substring(0, 7) == "finish:")
+                                          && !linea_sin_espacios.Contains("--")
+                                      )
+                                {
+                                    resultado += Revisar_Parametros_En_Encabezado(linea_sin_espacios, "finish", texto_encabezado, numero_linea);
+
+                                }
+                                //  validamos la longitud, que sea mayor a 15
+                                else if (linea_sin_espacios.Length >= 15)
+                                {
+                                    //  validamos que sea processResults
+                                    if ((linea_sin_espacios.Substring(0, 15) == "processResults:")
+                                         && !linea_sin_espacios.Contains("--")
+                                     )
+                                    {
+                                        resultado += Revisar_Parametros_En_Encabezado(linea_sin_espacios, "processResults", texto_encabezado, numero_linea);
+
+                                    }
+                                }
+                                //  validamos la longitud, que sea mayor a 10
+                                else if (linea_sin_espacios.Length >= 10)
+                                {
+                                    //  validamos que sea formatter
+                                    if ((linea_sin_espacios.Substring(0, 10) == "formatter:")
+                                            && !linea_sin_espacios.Contains("--")
+                                        )
+                                    {
+                                        resultado += Revisar_Parametros_En_Encabezado(linea_sin_espacios, "formatter", texto_encabezado, numero_linea);
+
+                                    }
+                                }
+                                //  validamos que sea evento click
                                 else if (linea_sin_espacios.Contains("('click'") && !linea_sin_espacios.Contains("--"))// validamos que sea una funcion con la palabra success
                                 {
                                     resultado += Revisar_Parametros_Click_En_Encabezado(linea_sin_espacios, "click", texto_encabezado, numero_linea);
 
                                 }
-
-
                                 else
                                 {
-                                    String xx = "";
+                                    //String xx = "";
                                 }
                             }
 
@@ -1480,7 +1627,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                resultado = ex.Message;
+                resultado = ex.Message + "[linea" + numero_linea + "]" + "[" + linea_sin_espacios + "]";
             }
 
             return resultado;
@@ -1531,7 +1678,30 @@ namespace Verificador_Codigo
                             //  validamos que tenga informacion la linea
                             if (linea_sin_espacios != "")
                             {
-                                if (linea_sin_espacios.Length > 2)
+
+
+                                //  validamos la longitud
+                                if (linea_sin_espacios.Length >= 5)
+                                {
+                                    if (!linea_sin_espacios.Contains("[//")
+                                                 && !linea_sin_espacios.Contains("try")
+                                                 && !linea_sin_espacios.Contains("});")
+                                                 && !linea_sin_espacios.Contains("},")
+                                                 && !linea_sin_espacios.Contains("};")
+                                                 && !linea_sin_espacios.Contains("}]")
+                                                 && !linea_sin_espacios.Contains("formatter")
+
+                                                 )
+                                    {
+                                        //  validamos que contenga las palabras claves
+                                        if (linea_sin_espacios.Substring(0, 5) == ("while"))
+                                        {
+                                            resultado += Tiene_Comentario_El_Ciclo_(linea_anterior, linea_sin_espacios, numero_linea);
+                                        }
+                                    }
+                                }
+                                //  validamos la longitud
+                                else if (linea_sin_espacios.Length > 2)
                                 {
                                     if (!linea_sin_espacios.Contains("[//")
                                                   && !linea_sin_espacios.Contains("try")
@@ -1540,15 +1710,11 @@ namespace Verificador_Codigo
                                                   && !linea_sin_espacios.Contains("};")
                                                   && !linea_sin_espacios.Contains("}]")
                                                   && !linea_sin_espacios.Contains("formatter")
-                                                  
+
                                                   )
                                     {
-                                        //  validamos que contenga las palabras claves
-                                        if (linea_sin_espacios.Substring(0, 5) == ("while"))
-                                        {
-                                            resultado += Tiene_Comentario_El_Ciclo_(linea_anterior, linea_sin_espacios, numero_linea);
-                                        }
-                                        else if (linea_sin_espacios.Substring(0, 3) == ("for"))
+                                        //  validamos que sea for
+                                        if (linea_sin_espacios.Substring(0, 3) == ("for"))
                                         {
                                             resultado += Tiene_Comentario_El_Ciclo_(linea_anterior, linea_sin_espacios, numero_linea);
                                         }
@@ -1557,10 +1723,6 @@ namespace Verificador_Codigo
                                         {
                                             resultado += Tiene_Comentario_El_Ciclo_(linea_anterior, linea_sin_espacios, numero_linea);
                                         }
-
-
-
-
                                     }
                                 }
                             }
@@ -1574,7 +1736,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                resultado = ex.Message + "[linea" + numero_linea + "] [ " + linea_sin_espacios + "]";
+                resultado = ex.Message + "[linea" + numero_linea + "]" + "[" + linea_sin_espacios + "]";
             }
 
             return resultado;
@@ -1611,8 +1773,6 @@ namespace Verificador_Codigo
                         //  se incrementa el numero de la linea
                         numero_linea++;
 
-                       
-
                         //  se quitan los espacios
                         linea_sin_espacios = linea.Trim();
 
@@ -1628,10 +1788,12 @@ namespace Verificador_Codigo
                             //  validamos que tenga informacion la linea
                             if (linea_sin_espacios != "")
                             {
-                                if (linea_sin_espacios.Length >= 2)
+                                //  validamos la longitud
+                                if (linea_sin_espacios.Length >= 4)
                                 {
-                                    if (!linea_sin_espacios.Contains("[//") 
-                                                && !linea_sin_espacios.Contains("try") 
+                                    //  validamos las palabras claves
+                                    if (!linea_sin_espacios.Contains("[//")
+                                                && !linea_sin_espacios.Contains("try")
                                                 && !linea_sin_espacios.Contains("});")
                                                 && !linea_sin_espacios.Contains("},")
                                                 && !linea_sin_espacios.Contains("};")
@@ -1639,13 +1801,8 @@ namespace Verificador_Codigo
                                                 && !linea_sin_espacios.Contains("],")
                                                 )
                                     {
-
-                                        if (linea_sin_espacios.Substring(0, 2) == ("if"))
-                                        {
-                                            resultado += Tiene_Comentario_El_Ciclo_(linea_anterior, linea_sin_espacios, numero_linea);
-                                        }
                                         //  validamos que contenga las palabras claves
-                                        else if (linea_sin_espacios.Substring(0, 4) == ("else"))
+                                        if (linea_sin_espacios.Substring(0, 4) == ("else"))
                                         {
                                             resultado += Tiene_Comentario_El_Ciclo_(linea_anterior, linea_sin_espacios, numero_linea);
                                         }
@@ -1654,6 +1811,27 @@ namespace Verificador_Codigo
                                             resultado += Tiene_Comentario_El_Ciclo_(linea_anterior, linea_sin_espacios, numero_linea);
                                         }
 
+                                    }
+                                }
+                                //  validamos la longitud
+                                else if (linea_sin_espacios.Length >= 2)
+                                {
+                                    //  validamos las palabras claves
+                                    if (!linea_sin_espacios.Contains("[//")
+                                                && !linea_sin_espacios.Contains("try")
+                                                && !linea_sin_espacios.Contains("});")
+                                                && !linea_sin_espacios.Contains("},")
+                                                && !linea_sin_espacios.Contains("};")
+                                                && !linea_sin_espacios.Contains("}]")
+                                                && !linea_sin_espacios.Contains("],")
+                                                )
+                                    {
+                                        //  validamos la palabra if
+                                        if (linea_sin_espacios.Substring(0, 2) == ("if"))
+                                        {
+                                            resultado += Tiene_Comentario_El_Ciclo_(linea_anterior, linea_sin_espacios, numero_linea);
+                                        }
+                                        
                                     }
                                 }
                             }
