@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Btn_Cargar_Archivo = new System.Windows.Forms.Button();
             this.Txt_Archivo = new System.Windows.Forms.RichTextBox();
             this.Tab_Resultados1 = new System.Windows.Forms.TabControl();
@@ -71,15 +72,11 @@
             this.TblPnl_Panel10 = new System.Windows.Forms.TableLayoutPanel();
             this.Txt_Resultado10 = new System.Windows.Forms.RichTextBox();
             this.Lbl_Etiqueta10 = new System.Windows.Forms.Label();
-            this.Btn_Revisar = new System.Windows.Forms.Button();
-            this.Lbl_Nombre_Archivo = new System.Windows.Forms.Label();
-            this.Lbl_Ruta_Archivo = new System.Windows.Forms.Label();
-            this.Btn_Actualizar_Archivo = new System.Windows.Forms.Button();
             this.tabPage11 = new System.Windows.Forms.TabPage();
-            this.tabPage12 = new System.Windows.Forms.TabPage();
             this.TblPnl_Panel11 = new System.Windows.Forms.TableLayoutPanel();
             this.Txt_Resultado11 = new System.Windows.Forms.RichTextBox();
             this.Lbl_Etiqueta11 = new System.Windows.Forms.Label();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
             this.TblPnl_Panel12 = new System.Windows.Forms.TableLayoutPanel();
             this.Txt_Resultado12 = new System.Windows.Forms.RichTextBox();
             this.Lbl_Etiqueta12 = new System.Windows.Forms.Label();
@@ -87,6 +84,10 @@
             this.TblPnl_Panel13 = new System.Windows.Forms.TableLayoutPanel();
             this.Txt_Resultado13 = new System.Windows.Forms.RichTextBox();
             this.Lbl_Etiqueta13 = new System.Windows.Forms.Label();
+            this.Btn_Revisar = new System.Windows.Forms.Button();
+            this.Lbl_Nombre_Archivo = new System.Windows.Forms.Label();
+            this.Lbl_Ruta_Archivo = new System.Windows.Forms.Label();
+            this.Btn_Actualizar_Archivo = new System.Windows.Forms.Button();
             this.Tab_Resultados1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.TblPnl_Panel1.SuspendLayout();
@@ -109,8 +110,8 @@
             this.tabPage10.SuspendLayout();
             this.TblPnl_Panel10.SuspendLayout();
             this.tabPage11.SuspendLayout();
-            this.tabPage12.SuspendLayout();
             this.TblPnl_Panel11.SuspendLayout();
+            this.tabPage12.SuspendLayout();
             this.TblPnl_Panel12.SuspendLayout();
             this.tabPage13.SuspendLayout();
             this.TblPnl_Panel13.SuspendLayout();
@@ -624,43 +625,6 @@
             this.Lbl_Etiqueta10.TabIndex = 7;
             this.Lbl_Etiqueta10.Text = "Todos los métodos están comentados claramente";
             // 
-            // Btn_Revisar
-            // 
-            this.Btn_Revisar.Location = new System.Drawing.Point(654, 12);
-            this.Btn_Revisar.Name = "Btn_Revisar";
-            this.Btn_Revisar.Size = new System.Drawing.Size(566, 23);
-            this.Btn_Revisar.TabIndex = 5;
-            this.Btn_Revisar.Text = "Revisar";
-            this.Btn_Revisar.UseVisualStyleBackColor = true;
-            this.Btn_Revisar.Click += new System.EventHandler(this.Btn_Revisar_Click);
-            // 
-            // Lbl_Nombre_Archivo
-            // 
-            this.Lbl_Nombre_Archivo.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbl_Nombre_Archivo.Location = new System.Drawing.Point(12, 46);
-            this.Lbl_Nombre_Archivo.Name = "Lbl_Nombre_Archivo";
-            this.Lbl_Nombre_Archivo.Size = new System.Drawing.Size(478, 37);
-            this.Lbl_Nombre_Archivo.TabIndex = 8;
-            // 
-            // Lbl_Ruta_Archivo
-            // 
-            this.Lbl_Ruta_Archivo.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbl_Ruta_Archivo.Location = new System.Drawing.Point(17, 62);
-            this.Lbl_Ruta_Archivo.Name = "Lbl_Ruta_Archivo";
-            this.Lbl_Ruta_Archivo.Size = new System.Drawing.Size(473, 21);
-            this.Lbl_Ruta_Archivo.TabIndex = 9;
-            this.Lbl_Ruta_Archivo.Visible = false;
-            // 
-            // Btn_Actualizar_Archivo
-            // 
-            this.Btn_Actualizar_Archivo.Location = new System.Drawing.Point(496, 46);
-            this.Btn_Actualizar_Archivo.Name = "Btn_Actualizar_Archivo";
-            this.Btn_Actualizar_Archivo.Size = new System.Drawing.Size(135, 34);
-            this.Btn_Actualizar_Archivo.TabIndex = 10;
-            this.Btn_Actualizar_Archivo.Text = "Actualizar archivo";
-            this.Btn_Actualizar_Archivo.UseVisualStyleBackColor = true;
-            this.Btn_Actualizar_Archivo.Click += new System.EventHandler(this.Btn_Actualizar_Archivo_Click);
-            // 
             // tabPage11
             // 
             this.tabPage11.Controls.Add(this.TblPnl_Panel11);
@@ -670,16 +634,6 @@
             this.tabPage11.TabIndex = 10;
             this.tabPage11.Text = "Resultado 11";
             this.tabPage11.UseVisualStyleBackColor = true;
-            // 
-            // tabPage12
-            // 
-            this.tabPage12.Controls.Add(this.TblPnl_Panel12);
-            this.tabPage12.Location = new System.Drawing.Point(4, 22);
-            this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Size = new System.Drawing.Size(562, 385);
-            this.tabPage12.TabIndex = 11;
-            this.tabPage12.Text = "Resultado 12";
-            this.tabPage12.UseVisualStyleBackColor = true;
             // 
             // TblPnl_Panel11
             // 
@@ -716,6 +670,16 @@
             this.Lbl_Etiqueta11.Size = new System.Drawing.Size(556, 96);
             this.Lbl_Etiqueta11.TabIndex = 7;
             this.Lbl_Etiqueta11.Text = "Todos los parámetros están comentados claramente (solo para Js)";
+            // 
+            // tabPage12
+            // 
+            this.tabPage12.Controls.Add(this.TblPnl_Panel12);
+            this.tabPage12.Location = new System.Drawing.Point(4, 22);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Size = new System.Drawing.Size(562, 385);
+            this.tabPage12.TabIndex = 11;
+            this.tabPage12.Text = "Resultado 12";
+            this.tabPage12.UseVisualStyleBackColor = true;
             // 
             // TblPnl_Panel12
             // 
@@ -799,6 +763,43 @@
             this.Lbl_Etiqueta13.TabIndex = 7;
             this.Lbl_Etiqueta13.Text = "Todos los bucles (for, Do, While, foreach…) están comentados claramente";
             // 
+            // Btn_Revisar
+            // 
+            this.Btn_Revisar.Location = new System.Drawing.Point(654, 12);
+            this.Btn_Revisar.Name = "Btn_Revisar";
+            this.Btn_Revisar.Size = new System.Drawing.Size(566, 23);
+            this.Btn_Revisar.TabIndex = 5;
+            this.Btn_Revisar.Text = "Revisar";
+            this.Btn_Revisar.UseVisualStyleBackColor = true;
+            this.Btn_Revisar.Click += new System.EventHandler(this.Btn_Revisar_Click);
+            // 
+            // Lbl_Nombre_Archivo
+            // 
+            this.Lbl_Nombre_Archivo.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_Nombre_Archivo.Location = new System.Drawing.Point(12, 46);
+            this.Lbl_Nombre_Archivo.Name = "Lbl_Nombre_Archivo";
+            this.Lbl_Nombre_Archivo.Size = new System.Drawing.Size(478, 37);
+            this.Lbl_Nombre_Archivo.TabIndex = 8;
+            // 
+            // Lbl_Ruta_Archivo
+            // 
+            this.Lbl_Ruta_Archivo.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_Ruta_Archivo.Location = new System.Drawing.Point(17, 62);
+            this.Lbl_Ruta_Archivo.Name = "Lbl_Ruta_Archivo";
+            this.Lbl_Ruta_Archivo.Size = new System.Drawing.Size(473, 21);
+            this.Lbl_Ruta_Archivo.TabIndex = 9;
+            this.Lbl_Ruta_Archivo.Visible = false;
+            // 
+            // Btn_Actualizar_Archivo
+            // 
+            this.Btn_Actualizar_Archivo.Location = new System.Drawing.Point(496, 46);
+            this.Btn_Actualizar_Archivo.Name = "Btn_Actualizar_Archivo";
+            this.Btn_Actualizar_Archivo.Size = new System.Drawing.Size(135, 34);
+            this.Btn_Actualizar_Archivo.TabIndex = 10;
+            this.Btn_Actualizar_Archivo.Text = "Actualizar archivo";
+            this.Btn_Actualizar_Archivo.UseVisualStyleBackColor = true;
+            this.Btn_Actualizar_Archivo.Click += new System.EventHandler(this.Btn_Actualizar_Archivo_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -811,6 +812,7 @@
             this.Controls.Add(this.Tab_Resultados1);
             this.Controls.Add(this.Txt_Archivo);
             this.Controls.Add(this.Btn_Cargar_Archivo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Verificador de codigo";
             this.Tab_Resultados1.ResumeLayout(false);
@@ -846,9 +848,9 @@
             this.TblPnl_Panel10.ResumeLayout(false);
             this.tabPage11.ResumeLayout(false);
             this.tabPage11.PerformLayout();
+            this.TblPnl_Panel11.ResumeLayout(false);
             this.tabPage12.ResumeLayout(false);
             this.tabPage12.PerformLayout();
-            this.TblPnl_Panel11.ResumeLayout(false);
             this.TblPnl_Panel12.ResumeLayout(false);
             this.tabPage13.ResumeLayout(false);
             this.tabPage13.PerformLayout();

@@ -47,7 +47,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                throw new Exception("Errro: " + ex.Message);
+                throw new Exception("Error: " + ex.Message);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                throw new Exception("Errro: " + ex.Message);
+                throw new Exception("Error: " + ex.Message);
             }
         }
 
@@ -159,13 +159,45 @@ namespace Verificador_Codigo
             }
             catch (Exception ex)
             {
-                throw new Exception("Errro: " + ex.Message);
+                throw new Exception("Error: " + ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resultado"></param>
+        /// <returns></returns>
+        public string Mensaje_Todo_Bien(String resultado)
+        {
+            String mensaje_ = "";//  variable para establecer el mensaje de la operación realizada
+
+
+            try {
+
+                //  se indica que todo esta bien
+                if (resultado.Length == 0)
+                {
+                    mensaje_ = "TODO BIEN :)";
+                }
+                else
+                {
+                    mensaje_ = resultado;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro: " + ex.Message);
+            }
+
+            return mensaje_;
         }
 
 
 
-        #region Revision
+
+        #region Revisión
 
         /// <summary>
         /// 
@@ -253,6 +285,13 @@ namespace Verificador_Codigo
 
 
                 }
+                else
+                {
+                }
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
+
             }
             catch (Exception ex)
             {
@@ -305,11 +344,11 @@ namespace Verificador_Codigo
                         else//  si lee la linea que no son using, class y namespace
                         {
                             //  validamos que tenga informacion la linea
-                            if (linea != "" )
+                            if (linea != "")
                             {
 
                                 //  validamos que el texto de la liena sea mayor a un caracter
-                                if (linea_sin_espacios.Length > 1 )
+                                if (linea_sin_espacios.Length > 1)
                                 {
 
                                     //  validamos que no sea comentario
@@ -360,7 +399,15 @@ namespace Verificador_Codigo
 
                         }
                     }
+
                 }
+                else
+                {
+                }
+
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
             }
             catch (Exception ex)
             {
@@ -404,16 +451,16 @@ namespace Verificador_Codigo
                         //  se incrementa el numero de la linea
                         numero_linea++;
 
-                        //  validamos que tenga informacion la linea
+                        //  validamos que tenga información la linea
                         if (linea != "")
                         {
-                            //  validamos que el texto de la liena sea mayor a un caracter
+                            //  validamos que el texto de la linea sea mayor a un carácter
                             if (linea_sin_espacios.Length > 3)
                             {
-                                //  validamos que tenga la paralabra sea var
+                                //  validamos que tenga la palabra sea var
                                 if (linea_sin_espacios.Substring(0, 3) == "var")
                                 {
-                                    string[] linea_texto = linea_sin_espacios.Split(' ');//   variable para contener las palabras
+                                    string[] linea_texto = linea_sin_espacios.Replace("$", " ").Split(' ');//   variable para contener las palabras
                                     string[] linea_variable_ = linea_texto[1].Split('_');//   variable para contener las palabras
 
                                     //  se recorren las palabras de la linea
@@ -423,7 +470,7 @@ namespace Verificador_Codigo
                                         {
                                             tieneMinusculas = Char.IsLower(caracter_palabra);
 
-                                            //  validamos que tenga las letras en mayuscula
+                                            //  validamos que tenga las letras en mayúscula
                                             if (tieneMinusculas == false)
                                             {
                                                 resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
@@ -514,7 +561,7 @@ namespace Verificador_Codigo
 
                                         }
                                     }
-                                    else if (linea_sin_espacios.Substring(0, 8) == "success:" 
+                                    else if (linea_sin_espacios.Substring(0, 8) == "success:"
                                                 || linea_sin_espacios.Substring(0, 8) == "results:"
                                                 || linea_sin_espacios.Substring(0, 5) == "data:"
 
@@ -705,6 +752,13 @@ namespace Verificador_Codigo
                         }
                     }
                 }
+                else
+                {
+                }
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
+
             }
             catch (Exception ex)
             {
@@ -821,6 +875,12 @@ namespace Verificador_Codigo
                         }
                     }
                 }
+                else
+                {
+                }
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
             }
             catch (Exception ex)
             {
@@ -899,9 +959,9 @@ namespace Verificador_Codigo
                                                 resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n";
                                             }
                                         }
-                                       
+
                                     }
-                                   
+
                                 }
 
 
@@ -934,7 +994,7 @@ namespace Verificador_Codigo
                             //  se quitan los espacios
                             linea_sin_espacios = linea.Trim();
 
-                           
+
                             //  validamos que tenga informacion la linea
                             if (linea != "")
                             {
@@ -1065,6 +1125,12 @@ namespace Verificador_Codigo
                         }
                     }
                 }
+                else
+                {
+                }
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
             }
             catch (Exception ex)
             {
@@ -1159,7 +1225,7 @@ namespace Verificador_Codigo
 
                                             //validamos que no sea un filtro
                                             if (linea_sin_comentarios.Contains("filtro") || linea_sin_comentarios.Contains("Filtro"))
-                                            { 
+                                            {
                                                 //  es correcto, no se realiza ninguna accion
                                             }
                                             else
@@ -1185,6 +1251,12 @@ namespace Verificador_Codigo
                         }
                     }
                 }
+                else
+                {
+                }
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
             }
             catch (Exception ex)
             {
@@ -1291,7 +1363,7 @@ namespace Verificador_Codigo
                                                 resultado += linea_sin_espacios + " Linea[" + numero_linea + "]" + "\n\n\n";
                                             }
                                         }
-                                        
+
 
 
                                     }
@@ -1301,6 +1373,12 @@ namespace Verificador_Codigo
                         }
                     }
                 }
+                else
+                {
+                }
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
             }
             catch (Exception ex)
             {
@@ -1364,6 +1442,11 @@ namespace Verificador_Codigo
 
                     }
                 }
+
+
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
             }
             catch (Exception ex)
             {
@@ -1462,6 +1545,12 @@ namespace Verificador_Codigo
                         }
                     }
                 }
+                else
+                {
+                }
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
             }
             catch (Exception ex)
             {
@@ -1624,6 +1713,12 @@ namespace Verificador_Codigo
                         }
                     }
                 }
+                else
+                {
+                }
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
             }
             catch (Exception ex)
             {
@@ -1733,6 +1828,12 @@ namespace Verificador_Codigo
 
                     }
                 }
+                else
+                {
+                }
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
             }
             catch (Exception ex)
             {
@@ -1831,7 +1932,7 @@ namespace Verificador_Codigo
                                         {
                                             resultado += Tiene_Comentario_El_Ciclo_(linea_anterior, linea_sin_espacios, numero_linea);
                                         }
-                                        
+
                                     }
                                 }
                             }
@@ -1842,6 +1943,12 @@ namespace Verificador_Codigo
 
                     }
                 }
+                else
+                {
+                }
+
+                //  se revisa si no se tuvo errores en la revisión
+                resultado = Mensaje_Todo_Bien(resultado);
             }
             catch (Exception ex)
             {
@@ -1850,8 +1957,6 @@ namespace Verificador_Codigo
 
             return resultado;
         }
-
-
 
 
         #endregion
