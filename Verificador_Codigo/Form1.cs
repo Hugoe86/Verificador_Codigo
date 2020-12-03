@@ -518,7 +518,13 @@ namespace Verificador_Codigo
                                 else if (linea_sin_espacios.Contains("catch"))//    validamos que sea catch
                                 {
                                     string[] linea_texto = linea_sin_espacios.Replace("(", "").Replace(")", "").Split(' ');//   variable para contener las palabras
-                                    string[] linea_variable_ = linea_texto[2].Split('_');//   variable para contener las palabras
+                                    string[] linea_variable_= linea_texto[2].Split('_');//   variable para contener las palabras
+
+                                    if (linea_texto[0] != "}")
+                                    {
+                                        linea_variable_ = linea_texto[1].Split('_');//   variable para contener las palabras
+                                    }
+
 
                                     //  se recorren las palabras de la linea
                                     for (int palabra = 0; palabra <= linea_variable_.Length - 1; palabra++)
@@ -1599,7 +1605,7 @@ namespace Verificador_Codigo
                                         //String xx = linea_sin_espacios;                                        
                                     }
                                 }
-                                //  validamos que sea callback
+
 
                             }
 
